@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "css/jquery.timesetter.css",
+    "inputFile": "css/jquery.timesetter.less"
+  },
+  {
+    "outputFile": "js/jquery.timesetter.es5.js",
+    "inputFile": "js/jquery.timesetter.js"
+  }
+]
