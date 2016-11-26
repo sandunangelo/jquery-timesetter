@@ -36,16 +36,42 @@
         <span class="blc"></span><span class="trc"></span>
         </div>
         <article class="markdown-body">
-          <h3>
-<a id="what-is-jquery-timesetter" class="anchor" href="#what-is-jquery-timesetter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is jquery-timesetter?</h3>
+          <h2>
+<a id="what-is-jquery-timesetter" class="anchor" href="#what-is-jquery-timesetter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is jquery-timesetter?</h2>
 
 <p>jquery-timesetter plugin generates UI components useful to take user inputs or to display time values with hour and minutes in a friendly format. UI provides intuitive behaviors for better user experience such as validations in real-time and keyboard arrow key support.</p>
 
-<h1>
-<a id="samples" class="anchor" href="#samples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Samples</h1>
+<h2>
+<a id="plugin-depends-on" class="anchor" href="#plugin-depends-on" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugin depends on:</h2>
 
 <ul>
-<li><p>Basic usage</p></li>
+<li>jQuery 2.2.4</li>
+<li>Bootstrap 3.3.7 CSS file</li>
+</ul>
+
+<h2>
+<a id="samples" class="anchor" href="#samples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Samples</h2>
+
+<ul>
+<li>
+<p>Basic usage
+To start with you can use any HTML container element such as <code>&lt;div/&gt;</code> or <code>&lt;p/&gt;</code>.</p>
+
+<div id="div1"></div>
+
+<div id="div2"></div>
+</li>
+</ul>
+
+<p>To apply timesetter capabilities you need to call <code>.timesetter()</code> on the HTML element.</p>
+
+<pre><code>$(document).ready(function(){
+    $("#div1").timesetter();
+    $("#div2").timesetter();
+});
+</code></pre>
+
+<ul>
 <li><p>Customize options</p></li>
 <li><p>Read input values</p></li>
 <li><p>Set values</p></li>
