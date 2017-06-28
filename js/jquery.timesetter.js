@@ -34,8 +34,8 @@
         var container = wrapper.find(".divTimeSetterContainer");
         saveOptions(container, options);
 
-        var btnUp = container.find('#btnUp');
-        var btnDown = container.find('#btnDown');
+        var btnUp = container.find('.btnUp');
+        var btnDown = container.find('.btnDown');
 
         // binding events
         btnUp.unbind('click').bind('click', function (event) { updateTimeValue(this, event); });
@@ -91,8 +91,8 @@
 
         unit = $(sender).data("unit");
 
-        $.fn.settings.inputHourTextbox = container.find('#txtHours');
-        $.fn.settings.inputMinuteTextbox = container.find('#txtMinutes');
+        $.fn.settings.inputHourTextbox = container.find('.txtHours');
+        $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
 
         saveOptions(container, $.fn.settings);
     };
@@ -105,8 +105,8 @@
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
-        $.fn.settings.inputHourTextbox = container.find('#txtHours');
-        $.fn.settings.inputMinuteTextbox = container.find('#txtMinutes');
+        $.fn.settings.inputHourTextbox = container.find('.txtHours');
+        $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
 
         $.fn.settings.hour.value = parseInt($.fn.settings.inputHourTextbox.val());
         $.fn.settings.minute.value = parseInt($.fn.settings.inputMinuteTextbox.val());
@@ -571,16 +571,16 @@
     var htmlTemplate =
 	'<div class="divTimeSetterContainer">' +
 		'<div class="timeValueBorder">' +
-			'<input id="txtHours" type="text" class="timePart hours" data-unit="hours" autocomplete="off" />' +
+			'<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' +
 			'<span class="hourSymbol"></span>' +
 			'<span class="timeDelimiter">:</span>' +
-			'<input id="txtMinutes" type="text" class="timePart minutes" data-unit="minutes" autocomplete="off" />' +
+			'<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off" />' +
 			'<span class="minuteSymbol"></span>' +
 			'<div class="button-time-control">' +
-				'<div id="btnUp" type="button" data-direction="increment" class="updownButton">' +
+				'<div type="button" data-direction="increment" class="updownButton btnUp">' +
 					'<i class="glyphicon glyphicon-triangle-top"></i>' +
 				'</div>' +
-				'<div id="btnDown" type="button" data-direction="decrement" class="updownButton">' +
+				'<div type="button" data-direction="decrement" class="updownButton btnDown">' +
 					'<i class="glyphicon glyphicon-triangle-bottom"></i>' +
 				'</div>' +
 			'</div>' +
