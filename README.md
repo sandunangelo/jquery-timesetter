@@ -62,3 +62,6 @@ var minutes = $(".div1").timesetter().getMinutesValue();
 var totalMinutes = $(".div1").timesetter().getTotalMinutes();
 var postfixText = $(".div1").timesetter().getPostfixText();
 ```
+
+### Authors blog:
+http://sandunangelo.blogspot.com/2018/09/jquery-timesetter-plugin.html
