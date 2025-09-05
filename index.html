@@ -111,7 +111,39 @@
             justify-content: center;
             align-items: center;
             margin: 1.5rem 0;
-            min-height: 60px;
+            min-height: 80px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Ensure timesetter components are properly styled */
+        .timesetter-demo .divTimeSetterContainer {
+            margin: 0 auto;
+        }
+
+        /* Demo container specific styles */
+        .business-hours-demo,
+        .duration-demo,
+        .start-time-demo,
+        .end-time-demo,
+        .basic-demo {
+            min-width: 150px;
+            display: inline-block;
+        }
+
+        /* Loading and error states */
+        .loading-text {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .text-danger {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
         }
 
         .stats-section {
@@ -352,7 +384,17 @@
                         <h4 class="demo-title">💼 Business Hours Picker</h4>
                         <p class="text-muted">Perfect for scheduling applications and business hour management</p>
                         <div class="timesetter-demo">
-                            <div class="business-hours-demo"></div>
+                            <div class="business-hours-demo">
+                                <div class="loading-text text-muted">
+                                    <i class="bi bi-clock-history"></i> Loading demo...
+                                </div>
+                                <!-- Fallback static demo -->
+                                <noscript>
+                                    <div class="alert alert-info">
+                                        <strong>Interactive Demo:</strong> Please enable JavaScript to see the working time picker.
+                                    </div>
+                                </noscript>
+                            </div>
                         </div>
                         <div class="code-block">
                             $(".business-hours").timesetter({
@@ -369,7 +411,11 @@
                         <h4 class="demo-title">⏱️ Meeting Duration</h4>
                         <p class="text-muted">Ideal for meeting schedulers and time tracking applications</p>
                         <div class="timesetter-demo">
-                            <div class="duration-demo"></div>
+                            <div class="duration-demo">
+                                <div class="loading-text text-muted">
+                                    <i class="bi bi-clock-history"></i> Loading demo...
+                                </div>
+                            </div>
                         </div>
                         <div class="code-block">
                             $(".duration").timesetter({
@@ -387,9 +433,17 @@
                         <p class="text-muted">Start and end time picker for daily planning</p>
                         <div class="timesetter-demo">
                             <div class="d-flex gap-3 justify-content-center align-items-center flex-wrap">
-                                <div class="start-time-demo"></div>
+                                <div class="start-time-demo">
+                                    <div class="loading-text text-muted">
+                                        <i class="bi bi-clock-history"></i> Loading...
+                                    </div>
+                                </div>
                                 <span class="text-muted">to</span>
-                                <div class="end-time-demo"></div>
+                                <div class="end-time-demo">
+                                    <div class="loading-text text-muted">
+                                        <i class="bi bi-clock-history"></i> Loading...
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="code-block">
@@ -413,7 +467,11 @@
                         <h4 class="demo-title">🎯 Basic Time Picker</h4>
                         <p class="text-muted">Simple time input with default settings</p>
                         <div class="timesetter-demo">
-                            <div class="basic-demo"></div>
+                            <div class="basic-demo">
+                                <div class="loading-text text-muted">
+                                    <i class="bi bi-clock-history"></i> Loading demo...
+                                </div>
+                            </div>
                         </div>
                         <div class="code-block">
                             // Simple initialization
@@ -552,47 +610,227 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery.timesetter.js"></script>
+    <script src="js/jquery.timesetter.js" onerror="handleScriptError()"></script>
+    
+    <script>
+        function handleScriptError() {
+            console.error('Failed to load jquery.timesetter.js');
+            $(document).ready(function() {
+                $('.loading-text').html('<i class="bi bi-exclamation-triangle text-danger"></i> Script file not found. <br><small>Please check if js/jquery.timesetter.js exists.</small>');
+            });
+        }
+    </script>
 
     <script>
-        $(document).ready(() => {
-            // Initialize demo timesetters
-            $('.business-hours-demo').timesetter({
-                hour: { value: 9, min: 8, max: 18, symbol: "h" },
-                minute: { value: 0, step: 30, symbol: "min" },
-                postfixText: " (Business)"
-            });
+        // Global flag to track if demos are initialized
+        var demosInitialized = false;
+        
+        function initializeTimesetteres() {
+            if (demosInitialized) return;
+            
+            console.log('Attempting to initialize timesetters...');
+            console.log('jQuery available:', typeof $ !== 'undefined');
+            console.log('Timesetter function available:', typeof $.fn.timesetter);
+            
+            if (typeof $ === 'undefined') {
+                console.error('jQuery not loaded!');
+                $('.loading-text').html('<i class="bi bi-exclamation-triangle text-danger"></i> jQuery not loaded');
+                return;
+            }
+            
+            if (typeof $.fn.timesetter !== 'function') {
+                console.error('jQuery Timesetter plugin not loaded!');
+                $('.loading-text').html('<i class="bi bi-exclamation-triangle text-warning"></i> Plugin not loaded. <br><small>Check console for details.</small>');
+                return;
+            }
 
-            $('.duration-demo').timesetter({
-                hour: { value: 1, min: 0, max: 8, symbol: "hr" },
-                minute: { value: 30, step: 15, symbol: "min" },
-                postfixText: " Duration"
-            });
+            try {
+                // Mark as attempting initialization
+                demosInitialized = true;
+                
+                // Business Hours Demo - try with simpler options first
+                console.log('Initializing business hours demo...');
+                $('.business-hours-demo').find('.loading-text').remove();
+                try {
+                    $('.business-hours-demo').timesetter({
+                        hour: {
+                            value: 9,
+                            min: 8,
+                            max: 18,
+                            step: 1,
+                            symbol: "h"
+                        },
+                        minute: {
+                            value: 0,
+                            min: 0,
+                            max: 59,
+                            step: 30,
+                            symbol: "min"
+                        },
+                        postfixText: " (Business)"
+                    });
+                    console.log('✓ Business hours demo initialized');
+                } catch (e) {
+                    console.error('Business hours error:', e);
+                    // Try with minimal options
+                    $('.business-hours-demo').html('');
+                    $('.business-hours-demo').timesetter();
+                    $('.business-hours-demo').timesetter().setHour(9);
+                    $('.business-hours-demo').timesetter().setMinute(0);
+                    $('.business-hours-demo').timesetter().setPostfixText(" (Business)");
+                    console.log('✓ Business hours demo initialized with fallback method');
+                }
 
-            $('.start-time-demo').timesetter({
-                hour: { value: 9, symbol: "h" },
-                minute: { value: 0, step: 15, symbol: "m" },
-                postfixText: " Start"
-            });
+                // Duration Demo
+                console.log('Initializing duration demo...');
+                $('.duration-demo').find('.loading-text').remove();
+                try {
+                    $('.duration-demo').timesetter({
+                        hour: {
+                            value: 1,
+                            min: 0,
+                            max: 8,
+                            step: 1,
+                            symbol: "hr"
+                        },
+                        minute: {
+                            value: 30,
+                            min: 0,
+                            max: 59,
+                            step: 15,
+                            symbol: "min"
+                        },
+                        postfixText: " Duration"
+                    });
+                    console.log('✓ Duration demo initialized');
+                } catch (e) {
+                    console.error('Duration error:', e);
+                    $('.duration-demo').html('');
+                    $('.duration-demo').timesetter();
+                    $('.duration-demo').timesetter().setHour(1);
+                    $('.duration-demo').timesetter().setMinute(30);
+                    $('.duration-demo').timesetter().setPostfixText(" Duration");
+                    console.log('✓ Duration demo initialized with fallback method');
+                }
 
-            $('.end-time-demo').timesetter({
-                hour: { value: 17, symbol: "h" },
-                minute: { value: 0, step: 15, symbol: "m" },
-                postfixText: " End"
-            });
+                // Start Time Demo
+                console.log('Initializing start time demo...');
+                $('.start-time-demo').find('.loading-text').remove();
+                try {
+                    $('.start-time-demo').timesetter({
+                        hour: {
+                            value: 9,
+                            min: 0,
+                            max: 23,
+                            step: 1,
+                            symbol: "h"
+                        },
+                        minute: {
+                            value: 0,
+                            min: 0,
+                            max: 59,
+                            step: 15,
+                            symbol: "m"
+                        },
+                        postfixText: " Start"
+                    });
+                    console.log('✓ Start time demo initialized');
+                } catch (e) {
+                    console.error('Start time error:', e);
+                    $('.start-time-demo').html('');
+                    $('.start-time-demo').timesetter();
+                    $('.start-time-demo').timesetter().setHour(9);
+                    $('.start-time-demo').timesetter().setMinute(0);
+                    $('.start-time-demo').timesetter().setPostfixText(" Start");
+                    console.log('✓ Start time demo initialized with fallback method');
+                }
 
-            $('.basic-demo').timesetter();
+                // End Time Demo
+                console.log('Initializing end time demo...');
+                $('.end-time-demo').find('.loading-text').remove();
+                try {
+                    $('.end-time-demo').timesetter({
+                        hour: {
+                            value: 17,
+                            min: 0,
+                            max: 23,
+                            step: 1,
+                            symbol: "h"
+                        },
+                        minute: {
+                            value: 0,
+                            min: 0,
+                            max: 59,
+                            step: 15,
+                            symbol: "m"
+                        },
+                        postfixText: " End"
+                    });
+                    console.log('✓ End time demo initialized');
+                } catch (e) {
+                    console.error('End time error:', e);
+                    $('.end-time-demo').html('');
+                    $('.end-time-demo').timesetter();
+                    $('.end-time-demo').timesetter().setHour(17);
+                    $('.end-time-demo').timesetter().setMinute(0);
+                    $('.end-time-demo').timesetter().setPostfixText(" End");
+                    console.log('✓ End time demo initialized with fallback method');
+                }
+
+                // Basic Demo
+                console.log('Initializing basic demo...');
+                $('.basic-demo').find('.loading-text').remove();
+                try {
+                    $('.basic-demo').timesetter();
+                    console.log('✓ Basic demo initialized');
+                } catch (e) {
+                    console.error('Basic demo error:', e);
+                    $('.basic-demo').html('<div class="text-danger"><i class="bi bi-exclamation-triangle"></i> Error: ' + e.message + '</div>');
+                }
+
+                console.log('🎉 All demos initialization attempted!');
+
+            } catch (e) {
+                console.error('Error during initialization:', e);
+                $('.loading-text').html('<i class="bi bi-exclamation-triangle text-danger"></i> Initialization error: ' + e.message);
+                demosInitialized = false;
+            }
+        }
+
+        $(document).ready(function() {
+            console.log('Document ready');
+            
+            // Try immediate initialization
+            setTimeout(initializeTimesetteres, 100);
+            
+            // Also try after a longer delay as backup
+            setTimeout(function() {
+                if (!demosInitialized) {
+                    console.log('Retrying initialization...');
+                    initializeTimesetteres();
+                }
+            }, 1000);
 
             // Smooth scrolling for anchor links
             $('a[href^="#"]').click(function (e) {
                 e.preventDefault();
-                const target = $($(this).attr('href'));
+                var target = $($(this).attr('href'));
                 if (target.length) {
                     $('html, body').animate({
                         scrollTop: target.offset().top - 70
                     }, 800);
                 }
             });
+        });
+
+        // Backup using window.onload
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (!demosInitialized) {
+                    console.log('Final attempt at initialization...');
+                    initializeTimesetteres();
+                }
+            }, 500);
         });
 
         // Copy to clipboard function
