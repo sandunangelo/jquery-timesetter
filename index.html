@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="jQuery Timesetter - A modern, elegant jQuery plugin for intuitive time input controls with Bootstrap 5 integration">
+    <meta name="keywords" content="jquery, timepicker, time input, bootstrap, javascript plugin, ui component">
+    <meta name="author" content="Sandun Angelo Perera">
+
+    <title>🕐 jQuery Timesetter - Modern Time Input Plugin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- jQuery Timesetter CSS -->
+    <link href="css/jquery.timesetter.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-bg-alt: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .demo-section {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            padding: 80px 0;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .demo-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .timesetter-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+            min-height: 60px;
+        }
+
+        .stats-section {
+            background: var(--gradient-bg-alt);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .cta-section {
+            background: #343a40;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .btn-custom {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn-primary-custom {
+            background: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary-custom:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline-custom:hover {
+            background: white;
+            color: #343a40;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #212529;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .badge-custom {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .installation-code {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto animate-fade-in">
+                    <h1 class="hero-title">🕐 jQuery Timesetter</h1>
+                    <p class="hero-subtitle">
+                        A modern, elegant jQuery plugin for intuitive time input controls.<br>
+                        Built with Bootstrap 5, featuring real-time validation and keyboard navigation.
+                    </p>
+                    <div class="mb-4">
+                        <span class="badge-custom">jQuery 3.7.1+</span>
+                        <span class="badge-custom">Bootstrap 5.3.3</span>
+                        <span class="badge-custom">Mobile Responsive</span>
+                        <span class="badge-custom">MIT License</span>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#demo" class="btn btn-custom btn-primary-custom">
+                            <i class="bi bi-play-circle"></i> Try Live Demo
+                        </a>
+                        <a href="https://github.com/sandunangelo/jquery-timesetter" class="btn btn-custom btn-outline-custom" target="_blank">
+                            <i class="bi bi-github"></i> View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold">✨ Why Choose jQuery Timesetter?</h2>
+                    <p class="lead text-muted">Experience the perfect blend of functionality and elegance</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">🎯</div>
+                            <h5 class="card-title">Intuitive Design</h5>
+                            <p class="card-text">Clean, modern interface with up/down controls that users instantly understand. No learning curve required.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">⌨️</div>
+                            <h5 class="card-title">Keyboard Support</h5>
+                            <p class="card-text">Full keyboard navigation with arrow keys for quick time adjustments. Perfect for power users and accessibility.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">✅</div>
+                            <h5 class="card-title">Smart Validation</h5>
+                            <p class="card-text">Real-time validation with intelligent error correction. Invalid values are automatically adjusted to valid ranges.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">📱</div>
+                            <h5 class="card-title">Mobile Ready</h5>
+                            <p class="card-text">Fully responsive design built on Bootstrap 5. Works perfectly on desktops, tablets, and mobile devices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">🎨</div>
+                            <h5 class="card-title">Highly Customizable</h5>
+                            <p class="card-text">Extensive configuration options for styling, behavior, validation rules, and display formats.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon">🚀</div>
+                            <h5 class="card-title">Lightweight</h5>
+                            <p class="card-text">Minimal footprint with maximum functionality. Easy integration with just a few lines of code.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold">🎮 Interactive Examples</h2>
+                    <p class="lead text-muted">See jQuery Timesetter in action with real-world scenarios</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="demo-card">
+                        <h4 class="demo-title">💼 Business Hours Picker</h4>
+                        <p class="text-muted">Perfect for scheduling applications and business hour management</p>
+                        <div class="timesetter-demo">
+                            <div class="business-hours-demo"></div>
+                        </div>
+                        <div class="code-block">
+                            $(".business-hours").timesetter({
+                            hour: { value: 9, min: 8, max: 18, symbol: "h" },
+                            minute: { value: 0, step: 30, symbol: "min" },
+                            postfixText: " (Business Hours)"
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="demo-card">
+                        <h4 class="demo-title">⏱️ Meeting Duration</h4>
+                        <p class="text-muted">Ideal for meeting schedulers and time tracking applications</p>
+                        <div class="timesetter-demo">
+                            <div class="duration-demo"></div>
+                        </div>
+                        <div class="code-block">
+                            $(".duration").timesetter({
+                            hour: { value: 1, min: 0, max: 8, symbol: "hr" },
+                            minute: { value: 30, step: 15, symbol: "min" },
+                            postfixText: " Duration"
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="demo-card">
+                        <h4 class="demo-title">🌅 Daily Schedule</h4>
+                        <p class="text-muted">Start and end time picker for daily planning</p>
+                        <div class="timesetter-demo">
+                            <div class="d-flex gap-3 justify-content-center align-items-center flex-wrap">
+                                <div class="start-time-demo"></div>
+                                <span class="text-muted">to</span>
+                                <div class="end-time-demo"></div>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            // Start Time
+                            $(".start-time").timesetter({
+                            hour: { value: 9, symbol: "h" },
+                            minute: { value: 0, step: 15, symbol: "m" }
+                            });
+
+                            // End Time
+                            $(".end-time").timesetter({
+                            hour: { value: 17, symbol: "h" },
+                            minute: { value: 0, step: 15, symbol: "m" }
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="demo-card">
+                        <h4 class="demo-title">🎯 Basic Time Picker</h4>
+                        <p class="text-muted">Simple time input with default settings</p>
+                        <div class="timesetter-demo">
+                            <div class="basic-demo"></div>
+                        </div>
+                        <div class="code-block">
+                            // Simple initialization
+                            $(".time-picker").timesetter();
+
+                            // Get values
+                            var hours = $(".time-picker").timesetter().getHoursValue();
+                            var minutes = $(".time-picker").timesetter().getMinutesValue();
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-number">3.7.1+</span>
+                        <span class="stat-label">jQuery Version</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-number">5.3.3</span>
+                        <span class="stat-label">Bootstrap Version</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Mobile Responsive</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-number">MIT</span>
+                        <span class="stat-label">Open Source</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold text-center mb-5">🚀 Quick Installation</h2>
+
+                    <div class="installation-code">
+                        <button class="copy-btn" onclick="copyToClipboard('install-code')">
+                            <i class="bi bi-clipboard"></i> Copy
+                        </button>
+                        <div id="install-code">
+                            &lt;!-- Include Dependencies --&gt;
+                            &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+                            &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"&gt;
+                            &lt;link href="css/jquery.timesetter.css" rel="stylesheet"&gt;
+
+                            &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+                            &lt;script src="js/jquery.timesetter.js"&gt;&lt;/script&gt;
+
+                            &lt;!-- Initialize --&gt;
+                            &lt;div id="my-timepicker"&gt;&lt;/div&gt;
+                            &lt;script&gt;
+                            $("#my-timepicker").timesetter();
+                            &lt;/script&gt;
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <p class="lead">That's it! You're ready to go in less than 2 minutes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold mb-4">Ready to Get Started?</h2>
+                    <p class="lead mb-5">Join developers worldwide who trust jQuery Timesetter for their time input needs</p>
+                    <div>
+                        <a href="example.html" class="btn btn-custom btn-primary-custom">
+                            <i class="bi bi-play-circle"></i> View Live Demo
+                        </a>
+                        <a href="https://github.com/sandunangelo/jquery-timesetter" class="btn btn-custom btn-outline-custom" target="_blank">
+                            <i class="bi bi-download"></i> Download Now
+                        </a>
+                        <a href="https://github.com/sandunangelo/jquery-timesetter" class="btn btn-custom btn-outline-custom" target="_blank">
+                            <i class="bi bi-file-text"></i> Documentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>jQuery Timesetter</h5>
+                    <p class="mb-0">Modern time input plugin for the jQuery ecosystem</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        Created with passion by <a href="http://sandunangelo.blogspot.com" class="text-white" target="_blank">Sandun Angelo Perera</a>
+                    </p>
+                    <div class="mt-2">
+                        <a href="https://github.com/sandunangelo/jquery-timesetter" class="text-white me-3" target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                        <a href="http://sandunangelo.blogspot.com/2018/09/jquery-timesetter-plugin.html" class="text-white" target="_blank">
+                            <i class="bi bi-journal-text"></i> Blog
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <small>&copy; 2025 jQuery Timesetter. Licensed under MIT License.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.timesetter.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            // Initialize demo timesetters
+            $('.business-hours-demo').timesetter({
+                hour: { value: 9, min: 8, max: 18, symbol: "h" },
+                minute: { value: 0, step: 30, symbol: "min" },
+                postfixText: " (Business)"
+            });
+
+            $('.duration-demo').timesetter({
+                hour: { value: 1, min: 0, max: 8, symbol: "hr" },
+                minute: { value: 30, step: 15, symbol: "min" },
+                postfixText: " Duration"
+            });
+
+            $('.start-time-demo').timesetter({
+                hour: { value: 9, symbol: "h" },
+                minute: { value: 0, step: 15, symbol: "m" },
+                postfixText: " Start"
+            });
+
+            $('.end-time-demo').timesetter({
+                hour: { value: 17, symbol: "h" },
+                minute: { value: 0, step: 15, symbol: "m" },
+                postfixText: " End"
+            });
+
+            $('.basic-demo').timesetter();
+
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').click(function (e) {
+                e.preventDefault();
+                const target = $($(this).attr('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 70
+                    }, 800);
+                }
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback
+                const btn = event.target.closest('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                btn.style.background = 'rgba(34, 197, 94, 0.3)';
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+
+</html>
