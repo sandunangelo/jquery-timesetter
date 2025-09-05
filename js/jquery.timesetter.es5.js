@@ -5,8 +5,9 @@
 * to display time values with hour and minutes in a friendly format. UI provide intutive behaviours for better user experience 
 * such as validations in realtime and keyboard arrow key support.
 * Dependency: 
-*              jQuery-2.2.4.min.js
-*              bootstrap css: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
+*              jQuery-3.7.1.min.js
+*              bootstrap css: https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
+*              bootstrap icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css
 * 
 * https://github.com/sandunangelo/jquery-timesetter
 */
@@ -36,27 +37,27 @@
         var btnDown = container.find('#btnDown');
 
         // binding events
-        btnUp.unbind('click').bind('click', function (event) {
+        btnUp.off('click').on('click', function (event) {
             updateTimeValue(this, event);
         });
-        btnDown.unbind('click').bind('click', function (event) {
+        btnDown.off('click').on('click', function (event) {
             updateTimeValue(this, event);
         });
 
         var txtHours = container.find('#txtHours');
         var txtMinutes = container.find('#txtMinutes');
 
-        txtHours.unbind('focusin').bind('focusin', function (event) {
+        txtHours.off('focusin').on('focusin', function (event) {
             $(this).select();unitChanged(this, event);
         });
-        txtMinutes.unbind('focusin').bind('focusin', function (event) {
+        txtMinutes.off('focusin').on('focusin', function (event) {
             $(this).select();unitChanged(this, event);
         });
 
-        txtHours.unbind('keydown').bind('keydown', function (event) {
+        txtHours.off('keydown').on('keydown', function (event) {
             updateTimeValueByArrowKeys(this, event);
         });
-        txtMinutes.unbind('keydown').bind('keydown', function (event) {
+        txtMinutes.off('keydown').on('keydown', function (event) {
             updateTimeValueByArrowKeys(this, event);
         });
 
@@ -509,7 +510,7 @@
     /**
      * plugin UI html template
      */
-    var htmlTemplate = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input id="txtHours" type="text" class="timePart hours" data-unit="hours" autocomplete="off" />' + '<span class="hourSymbol"></span>' + '<span class="timeDelimiter">:</span>' + '<input id="txtMinutes" type="text" class="timePart minutes" data-unit="minutes" autocomplete="off" />' + '<span class="minuteSymbol"></span>' + '<div class="button-time-control">' + '<div id="btnUp" type="button" data-direction="increment" class="updownButton">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div id="btnDown" type="button" data-direction="decrement" class="updownButton">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
+    var htmlTemplate = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input id="txtHours" type="text" class="timePart hours" data-unit="hours" autocomplete="off" />' + '<span class="hourSymbol"></span>' + '<span class="timeDelimiter">:</span>' + '<input id="txtMinutes" type="text" class="timePart minutes" data-unit="minutes" autocomplete="off" />' + '<span class="minuteSymbol"></span>' + '<div class="button-time-control">' + '<div id="btnUp" type="button" data-direction="increment" class="updownButton">' + '<i class="bi bi-triangle-fill"></i>' + '</div>' + '<div id="btnDown" type="button" data-direction="decrement" class="updownButton">' + '<i class="bi bi-triangle-fill" style="transform: rotate(180deg);"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
 })(jQuery);
 
 /*
